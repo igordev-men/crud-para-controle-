@@ -30,7 +30,7 @@ export default function LoginPage(){
   />
   <input
     type="password"
-    name="password" // ⚠️ precisa bater com formData.get("senha") na action
+    name="password" 
     placeholder="sua senha"
     autoComplete="current-password"
     required
