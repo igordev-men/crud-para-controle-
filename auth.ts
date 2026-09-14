@@ -13,8 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Senha", type: "password" },
       },
       authorize: async (credentials) => {
-  console.log("🔍 [AUTH] Tentando login com email:", credentials?.email)
-  console.log("🔍 [AUTH] Senha recebida (primeiros 3 chars):", credentials?.password?.slice(0,3))
+
   
   if (!credentials?.email || !credentials?.password) {
     console.log("❌ [AUTH] Faltou email ou senha")
@@ -25,15 +24,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     where: { email: credentials.email as string },
   })
   
-  console.log("👤 [AUTH] Usuário encontrado no banco:", user ? "SIM" : "NÃO")
   
   if (!user) {
     console.log("❌ [AUTH] Email não existe na tabela User")
     return null
   }
 
-  console.log("🔐 [AUTH] Hash no banco (primeiros 20 chars):", user.senha?.slice(0,20))
-  console.log("🔐 [AUTH] Tamanho do hash no banco:", user.senha?.length)
 
   const senhaCorreta = await bcrypt.compare(
     credentials.password as string,
